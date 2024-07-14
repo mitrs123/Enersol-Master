@@ -6,7 +6,7 @@ import cors from 'cors';
 import fetch from 'node-fetch';
 
 const app = express();
-const port = 3030;
+const port = 3001;
 
 // Middleware
 app.use(cors());
@@ -35,7 +35,16 @@ let debounce_fun = lodash.debounce(async function (req, res) {
     console.log(formData);
 
     const response = await fetch(url, options);
-    const responseData = await response.json();
+
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    let responseData;
+    if (contentType && contentType.includes('application/json')) {
+      responseData = await response.json();
+    } else {
+      responseData = await response.text();
+    }
+
     res.status(200).send(responseData);
   } catch (error) {
     console.error('Error processing form data:', error);
