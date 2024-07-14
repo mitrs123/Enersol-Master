@@ -21,7 +21,7 @@ app.post('/form-data', async (req, res) => {
 let debounce_fun = lodash.debounce(async function (req, res) {
   const formData = req.body;
 
-  const url = 'http://localhost:3333/form-data';
+  const url = 'https://enersol-solutions-sheet-automation.vercel.app/form-data';
   const options = {
     method: 'POST',
     headers: {
